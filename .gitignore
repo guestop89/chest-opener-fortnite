@@ -1,0 +1,16 @@
+**/bin/
+**/obj/
+dist/
+*.user
+.vs/
+*.replay
+**/FortCoffresAuto-data/
+**/background.png
+**/Background.png
+**/data.json
+**/config.json
+**/preferences.json
+**/errors.log
+**/*.bak
+**/startup-error.txt
+**/validation.json

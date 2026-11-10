@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>FortCoffresAuto</AssemblyName>
+    <ApplicationIcon>../ChestCounter/Assets/ChestCounter.ico</ApplicationIcon>
+    <PublishTrimmed>false</PublishTrimmed>
+    <Version>2.2.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../ChestCounter/*.cs" Exclude="../ChestCounter/Program.cs" />
+    <ProjectReference Include="../../lib/FortniteReplayReader/FortniteReplayReader.csproj" />
+    <EmbeddedResource Include="../ChestCounter/Assets/PirataOne-latin.woff2" LogicalName="PirataOne.woff2" />
+  </ItemGroup>
+</Project>

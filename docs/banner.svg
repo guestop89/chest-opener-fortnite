@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+<title id="title">FortCoffres Auto</title><desc id="desc">Compteur de coffres Fortnite. Replays, overlay et historique.</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#17102f"/><stop offset="1" stop-color="#081a2d"/></linearGradient><linearGradient id="accent"><stop stop-color="#a576ff"/><stop offset="1" stop-color="#36e6f5"/></linearGradient><radialGradient id="glow"><stop stop-color="#7c3aed" stop-opacity=".4"/><stop offset="1" stop-color="#7c3aed" stop-opacity="0"/></radialGradient></defs>
+<rect width="1200" height="320" rx="28" fill="url(#bg)"/><ellipse cx="170" cy="30" rx="400" ry="300" fill="url(#glow)"/>
+<rect x="36" y="30" width="1128" height="2" fill="url(#accent)"/>
+<g transform="translate(72 105)"><rect x="0" y="8" width="106" height="88" rx="14" fill="#f8b83e"/><path d="M2 42h102M24 10v84M82 10v84" stroke="#ffe394" stroke-width="8"/><rect x="45" y="36" width="16" height="26" rx="4" fill="#6b4012"/></g>
+<text x="216" y="117" fill="#a8f8e0" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="4">REPLAY TRACKER / WINDOWS</text>
+<text x="210" y="185" fill="white" font-family="Segoe UI,Arial,sans-serif" font-size="64" font-weight="800" letter-spacing="-2">FORTCOFFRES <tspan fill="#ffd762">AUTO</tspan></text>
+<text x="214" y="227" fill="#b9cae1" font-family="Segoe UI,Arial,sans-serif" font-size="23">Coffres ouverts + cassés. Chaque partie compte.</text>
+<text x="74" y="282" fill="#8fa7c5" font-family="Segoe UI,Arial,sans-serif" font-size="16">OVERLAY DISCRET</text><text x="362" y="282" fill="#8fa7c5" font-family="Segoe UI,Arial,sans-serif" font-size="16">HISTORIQUE PAR COMPTE</text><text x="730" y="282" fill="#8fa7c5" font-family="Segoe UI,Arial,sans-serif" font-size="16">SYNCHRONISATION FACULTATIVE</text>
+</svg>

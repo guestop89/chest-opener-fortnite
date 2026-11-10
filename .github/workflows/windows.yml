@@ -1,0 +1,60 @@
+name: Windows build
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Publish portable Windows executable
+        shell: pwsh
+        run: dotnet publish src/FortCoffresAuto/FortCoffresAuto.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -o dist
+      - name: Verify calculations, persistence and merging
+        shell: pwsh
+        run: |
+          $resultPath = Join-Path $env:RUNNER_TEMP 'fortcoffres-tests'
+          $process = Start-Process -FilePath "$PWD/dist/FortCoffresAuto.exe" -ArgumentList @('--self-test','--data', $resultPath) -Wait -PassThru
+          if ($process.ExitCode -ne 0) { throw 'Self-test failed' }
+          Get-Content (Join-Path $resultPath 'tests.txt')
+      - name: Package download
+        shell: pwsh
+        run: |
+          Copy-Item README.md,LICENSE,THIRD_PARTY_NOTICES.md -Destination dist
+          New-Item -ItemType Directory -Path dist/Licences -Force | Out-Null
+          Copy-Item lib/LICENSE-FortniteReplayDecompressor -Destination dist/Licences
+          Copy-Item src/ChestCounter/Assets/PirataOne-OFL.txt -Destination dist/Licences
+          Compress-Archive -Path dist/* -DestinationPath FortCoffresAuto-windows-x64.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: FortCoffresAuto-windows-x64
+          path: FortCoffresAuto-windows-x64.zip
+      - name: Publish release
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: pwsh
+        run: |
+          [xml]$project = Get-Content src/FortCoffresAuto/FortCoffresAuto.csproj
+          $version = $project.Project.PropertyGroup.Version
+          $tag = "v$version"
+          gh release view $tag *> $null
+          if ($LASTEXITCODE -eq 0) {
+            gh release upload $tag FortCoffresAuto-windows-x64.zip dist/FortCoffresAuto.exe --clobber
+          } else {
+            gh release create $tag FortCoffresAuto-windows-x64.zip dist/FortCoffresAuto.exe --target $env:GITHUB_SHA --title "FortCoffres Auto $version" --notes-file RELEASE_NOTES.md
+          }
+          if ($LASTEXITCODE -ne 0) { throw 'Release publication failed' }
